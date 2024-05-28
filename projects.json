@@ -1,0 +1,26 @@
+{
+    "kmaps": {
+        "description": "testing 123",
+        "tags": ["React"],
+        "github": "/kmaping/kmaps"
+    },
+    "curl-ui": {
+        "description": "user interface for building complex curl commands",
+        "tags": ["Lit"],
+        "website": true
+    },
+    "gcode-draw": {
+        "description": "draw with gcode!",
+        "tags": ["React", "d3"],
+        "website": true
+    },
+    "lorem": {
+        "description": "lorem ipsum sit amor dolore tres mamamia!",
+        "tags": ["Svelte", "Astro"],
+        "github": false
+    },
+    "testing": {
+        "description": "testing 123",
+        "tags": ["HTML"]
+    }
+}

@@ -1,0 +1,57 @@
+---
+import Footer from '@components/Footer.astro'
+import Header from '@components/Header.astro'
+import LinkImg from '@components/LinkImg.astro'
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<LinkImg rel="shortcut icon" href="/icons/favicon{size}.png" sizes={[32,48,96,128,144,192]} type="image/png"/>
+		<title>{title} – ler.quest</title>
+	</head>
+	<body class="grid grid-rows-[auto_1fr_auto] min-h-full bg-slate-50 dark:bg-slate-900">
+		<Header/>
+		<main class="max-w-7xl mx-auto w-full p-4">
+			<slot />
+		</main>
+		<Footer/>
+	</body>
+</html>
+<style is:global>
+	html {
+		font-family: Lexend, sans-serif;
+		height: 100%;
+	}
+	html.dark {
+		color-scheme: dark;
+	}
+	body {
+		background-image: url("/dot.svg");
+		background-size: 1.5rem;
+	}
+	svg.icon {
+		stroke-width: 2px;
+		stroke: currentColor;
+		fill: none;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	@font-face {
+		font-family: 'Lexend';
+		font-style: normal;
+		font-weight: 100 900;
+		font-display: swap;
+		src: url(/lexend-latin.woff2) format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	}
+</style>

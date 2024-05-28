@@ -1,0 +1,13 @@
+---
+interface Props {
+    rel: string
+    href: string
+    sizes: number[]
+    type: string
+}
+
+const { rel, href, sizes, type } = Astro.props
+---
+
+{ sizes.map(size => <link rel={rel} href={href.replaceAll('{size}', size.toFixed())} sizes={size.toFixed()+"x"+size.toFixed()} type={type}/>) }
+<link rel={rel}/>
