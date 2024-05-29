@@ -1,4 +1,4 @@
-# <img src="https://ler.quest/icons/favicon128.png" width="24"/> ler.quest
+# <img src="public/icons/favicon128.png" width="24"/> ler.quest
 
 eu ler's quest to build stuff
 
