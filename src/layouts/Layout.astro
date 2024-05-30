@@ -1,8 +1,9 @@
 ---
-import Footer from '@components/Footer.astro'
-import Header from '@components/Header.astro'
-import LinkImg from '@components/LinkImg.astro'
+import FooterNav from '@components/FooterNav.astro'
+import Logo from '@components/Logo.astro'
 import PreviewNotice from '@components/PreviewNotice.astro'
+import { Head, Header, Footer, HeadImgLinks, ThemeSwitch } from '@lameuler/ler-astro'
+import '@lameuler/ler-astro/icon.css'
 
 interface Props {
 	title: string;
@@ -13,19 +14,28 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<LinkImg rel="shortcut icon" href="/icons/favicon{size}.png" sizes={[32,48,96,128,144,192]} type="image/png"/>
-		<title>{title} – ler.quest</title>
-	</head>
-	<body class="grid grid-rows-[auto_1fr_auto] min-h-full bg-slate-50 dark:bg-slate-900">
-		<Header/>
-		<main class="max-w-7xl mx-auto w-full p-4">
+	<Head title={title} site="ler.quest">
+		<HeadImgLinks rel="shortcut icon" href="/icons/favicon{size}.png" sizes={[32,48,96,128,144,192]} type="image/png"/>
+	</Head>
+	<body class="grid grid-rows-[auto_1fr_auto] min-h-full max-w-7xl mx-auto bg-slate-50 dark:bg-slate-900">
+		<Header>
+			<Logo/>
+			<ThemeSwitch>
+				<img slot="light" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src="/icons/theme-light.png" width="40" height="40" srcset="/icons/theme-light-64.webp 64w, /icons/theme-light-128.webp 128w, /icons/theme-light-256.webp 256w" alt="" loading="lazy"/>
+    			<img slot="dark" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src="/icons/theme-dark.png" width="40" height="40" srcset="/icons/theme-dark-64.webp 64w, /icons/theme-dark-128.webp 128w, /icons/theme-dark-256.webp 256w" alt="" loading="lazy"/>
+			</ThemeSwitch>
+		</Header>
+		<main class="w-full p-4">
 			<slot />
 		</main>
-		<Footer/>
+		<Footer>
+			<FooterNav slot="left"/>
+			<div slot="right" class="text-gray-600 dark:text-gray-300 opacity-80 p-0.5">
+                Made with <a href="https://astro.build" class="underline">Astro</a>, <a href="https://svelte.dev" class="underline">Svelte</a> and <a href="https://tailwindcss.com" class="underline">Tailwind</a>.
+                <a href="https://github.com/lameuler/lameuler.github.io" class="underline">View on GitHub</a>
+            </div>
+			<a slot="license" href="/license" class="underline">MIT License</a>
+		</Footer>
 		<PreviewNotice/>
 	</body>
 </html>
@@ -40,13 +50,6 @@ const { title } = Astro.props;
 	body {
 		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 96 96' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%2364748b40' cx='48' cy='48' r='6'/%3E%3C/svg%3E");
 		background-size: 1.5rem;
-	}
-	svg.icon {
-		stroke-width: 2px;
-		stroke: currentColor;
-		fill: none;
-		stroke-linecap: round;
-		stroke-linejoin: round;
 	}
 	@font-face {
 		font-family: 'Lexend';
