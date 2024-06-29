@@ -12,7 +12,7 @@ interface Props {
 
 const { title } = Astro.props;
 const REPO = import.meta.env.GITHUB_REPOSITORY || 'lameuler/lameuler.github.io'
-const SHA = import.meta.env.GITHUB_SHA
+const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c976c684a5c0067a4b7a38af21fd0' : undefined)
 ---
 
 <!doctype html>
