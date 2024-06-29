@@ -2,11 +2,22 @@ import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 
+const PORT = (() => {
+    if (typeof process.env.PORT === 'string') {
+        const parsed = parseInt(process.env.PORT)
+        if (isFinite(parsed)) return parsed
+    }
+    return 2020 // default port
+})()
+
 // https://astro.build/config
 export default defineConfig({
     integrations: [tailwind(), svelte()],
-    site: process.env.SITE || 'http://localhost:2020',
+    site: process.env.SITE || 'http://localhost:'+PORT,
+    build: {
+        assets: 'assets'
+    },
     server: {
-        port: 2020
+        port: PORT
     }
 });
