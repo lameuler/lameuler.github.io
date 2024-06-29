@@ -1,6 +1,6 @@
 <script lang="ts">
     import Fuse from 'fuse.js'
-    import Search from '@components/Search.svelte'
+    import Search from '@/components/Search.svelte'
     import Card from './Card.svelte'
 
     interface Project {
