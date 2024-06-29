@@ -1,10 +1,13 @@
 ---
+import { Image } from 'astro:assets'
 import FooterNav from '@/components/FooterNav.astro'
 import Logo from '@/components/Logo.astro'
 import PreviewNotice from '@/components/PreviewNotice.astro'
 import { Head, Header, Footer, HeadImgLinks, ThemeSwitch } from '@lameuler/ler-astro'
 import '@lameuler/ler-astro/icon.css'
 import '../font.css'
+import light from '@/assets/_light.png'
+import dark from '@/assets/_dark.png'
 
 interface Props {
 	title: string;
@@ -24,8 +27,8 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 		<Header>
 			<Logo/>
 			<ThemeSwitch>
-				<img slot="light" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src="/icons/theme-light.png" width="40" height="40" srcset="/icons/theme-light-64.webp 64w, /icons/theme-light-128.webp 128w, /icons/theme-light-256.webp 256w" alt="" loading="lazy"/>
-    			<img slot="dark" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src="/icons/theme-dark.png" width="40" height="40" srcset="/icons/theme-dark-64.webp 64w, /icons/theme-dark-128.webp 128w, /icons/theme-dark-256.webp 256w" alt="" loading="lazy"/>
+				<Image slot="light" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src={light} width={40} height={40} densities={[1,2,3]} alt=""/>
+				<Image slot="dark" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src={dark} width={40} height={40} densities={[1,2,3]} alt=""/>
 			</ThemeSwitch>
 		</Header>
 		<main class="w-full p-4">
