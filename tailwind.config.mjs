@@ -2,7 +2,12 @@
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './node_modules/@lameuler/ler-astro/src/*.astro'],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				'sans': ['Lexend', 'sans-serif'],
+				'mono': ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+			}
+		},
 	},
 	darkMode: 'class',
 	plugins: [
