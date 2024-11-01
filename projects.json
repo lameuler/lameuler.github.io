@@ -1,26 +1,7 @@
 {
-    "kmaps": {
-        "description": "testing 123",
-        "tags": ["React"],
-        "github": "/kmaping/kmaps"
-    },
-    "curl-ui": {
-        "description": "user interface for building complex curl commands",
-        "tags": ["Lit"],
-        "website": true
-    },
-    "gcode-draw": {
-        "description": "draw with gcode!",
-        "tags": ["React", "d3"],
-        "website": true
-    },
-    "lorem": {
-        "description": "lorem ipsum sit amor dolore tres mamamia!",
-        "tags": ["Svelte", "Astro"],
-        "github": false
-    },
-    "testing": {
-        "description": "testing 123",
-        "tags": ["HTML"]
+    "google-fine": {
+        "description": "Simple webpage with live estimate of the growth of Google's 2 undecillion ruble fine from Russia",
+        "tags": ["HTML"],
+        "github": true
     }
 }

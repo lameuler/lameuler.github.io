@@ -13,7 +13,7 @@ const PORT = (() => {
 // https://astro.build/config
 export default defineConfig({
     integrations: [tailwind(), svelte()],
-    site: process.env.SITE || 'http://localhost:'+PORT,
+    site: 'https://ler.quest',
     build: {
         assets: 'assets'
     },

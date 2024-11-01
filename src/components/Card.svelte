@@ -17,11 +17,14 @@
 
 	let gh = $derived(typeof github === 'string' ? 'https://github.com/'+github : (github ? 'https://github.com/lameuler/'+name : false))
 	let site = $derived(typeof website === 'string' ? (website.startsWith('/') ? 'https://ler.sg/'+website : website) : (website ? 'https://ler.sg/'+name : false))
+
+	const base = import.meta.env.SITE ?? ''
+	let href = $derived(base.replace(/\/$/, '') + '/' + name)
 </script>
 
 <li class="bg-slate-100/70 dark:bg-slate-900/70 p-2 rounded-2xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-800 transition-shadow">
 	<div class="flex justify-between">
-		<a href={"/"+name} class="flex gap-0.5 items-center font-semibold underline text-lg p-2 group">
+		<a {href} class="flex gap-0.5 items-center font-semibold underline text-lg p-2 group">
 			{name}
 			<svg viewBox="0 0 24 24" class="icon h-5 w-5 opacity-20 group-hover:opacity-100 group-hover:translate-x-0.5 transition-[opacity,transform]">
 				<path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" />
