@@ -1,12 +1,22 @@
 <script lang="ts">
-	export let name: string
-	export let description: string
-	export let tags: string[]
-	export let github: string | boolean | undefined
-	export let website: string | boolean | undefined
+	interface Props {
+		name: string;
+		description: string;
+		tags: string[];
+		github: string | boolean | undefined;
+		website: string | boolean | undefined;
+	}
 
-	$: gh = typeof github === 'string' ? 'https://github.com/'+github : (github ? 'https://github.com/lameuler/'+name : false)
-	$: site = typeof website === 'string' ? (website.startsWith('/') ? 'https://ler.sg/'+website : website) : (website ? 'https://ler.sg/'+name : false)
+	let {
+		name,
+		description,
+		tags,
+		github,
+		website
+	}: Props = $props();
+
+	let gh = $derived(typeof github === 'string' ? 'https://github.com/'+github : (github ? 'https://github.com/lameuler/'+name : false))
+	let site = $derived(typeof website === 'string' ? (website.startsWith('/') ? 'https://ler.sg/'+website : website) : (website ? 'https://ler.sg/'+name : false))
 </script>
 
 <li class="bg-slate-100/70 dark:bg-slate-900/70 p-2 rounded-2xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-800 transition-shadow">

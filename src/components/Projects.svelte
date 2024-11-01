@@ -10,16 +10,20 @@
         website?: string | boolean
     }
 
-    export let projects: {[name: string]: Project}
+    interface Props {
+        projects: {[name: string]: Project};
+    }
 
-    let value = ''
+    let { projects }: Props = $props();
+
+    let value = $state('')
 
     const items = Object.entries(projects).map(([key, value]) => ({ name: key, ...value }))
-    $: view = value ? fuse.search(value).map(i => i.item) : items
 
     const fuse = new Fuse(items, {
         keys: ['name', 'description']
     })
+    let view = $derived(value ? fuse.search(value).map(i => i.item) : items)
 </script>
 
 <Search bind:value/>
