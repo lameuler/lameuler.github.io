@@ -11,16 +11,16 @@ import dark from '@/assets/_dark.png'
 
 interface Props {
 	title: string;
+	description: string;
 }
 
-const { title } = Astro.props;
 const REPO = import.meta.env.GITHUB_REPOSITORY || 'lameuler/lameuler.github.io'
 const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c976c684a5c0067a4b7a38af21fd0' : undefined)
 ---
 
 <!doctype html>
 <html lang="en">
-	<Head title={title} site="ler.quest">
+	<Head {...Astro.props} site="ler.quest">
 		<HeadImgLinks rel="shortcut icon" href="/icons/favicon{size}.png" sizes={[32,48,96,128,144,192]} type="image/png"/>
 	</Head>
 	<body class="grid grid-rows-[auto_1fr_auto] min-h-full max-w-7xl mx-auto bg-slate-50 dark:bg-slate-900">

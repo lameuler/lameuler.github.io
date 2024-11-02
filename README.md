@@ -1,6 +1,6 @@
 # <img src="public/icons/favicon128.png" width="24"/> ler.quest
 
-eu ler's quest to build stuff
+eu ler's quest to make stuff
 
 [ler.quest](https://ler.quest) is a place to host and run some of my projects
 
