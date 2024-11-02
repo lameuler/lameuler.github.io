@@ -39,15 +39,14 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 			<div slot="left" class="text-gray-600 dark:text-gray-300 opacity-80 px-2 py-0.5 mt-1">
                 Made with <a href="https://astro.build" class="underline">Astro</a>, <a href="https://svelte.dev" class="underline">Svelte</a> and <a href="https://tailwindcss.com" class="underline">Tailwind</a>.
             </div>
-			<div slot="right" class="text-gray-600 dark:text-gray-300 opacity-80 p-0.5 mt-auto">
+			{ false && <div slot="right" class="text-gray-600 dark:text-gray-300 opacity-80 p-0.5 mt-auto">
 				<a href=`https://github.com/${REPO}` class="underline">View on GitHub</a>
 				{ SHA &&
 					<span>-</span> <a class="hover:underline" href={`https://github.com/${REPO}/commit/${SHA}`}><code>{ SHA.substring(0,7) }</code></a>
 				}
-			</div>
+			</div> }
 			<a slot="license" href="/license" class="underline">MIT License</a>
 		</Footer>
-		<PreviewNotice/>
 	</body>
 </html>
 <style is:global>
