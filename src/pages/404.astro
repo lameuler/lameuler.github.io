@@ -6,7 +6,7 @@ import Layout from '@/layouts/Layout.astro'
 <script>
     const container = document.querySelector('div[data-link]')
     if (container) {
-        window.location.pathname.split('/').forEach((path, i, arr) => {
+        window.location.pathname.replace(/\/+$/, '').split('/').forEach((path, i, arr) => {
             const a = document.createElement('a')
             a.href = '/' + arr.slice(1, i+1).join('/')
             a.textContent = i > 0 ? '/' + path : window.location.origin
@@ -25,7 +25,7 @@ import Layout from '@/layouts/Layout.astro'
 
 <Layout title="page not found">
     <div class="flex flex-col items-center justify-center h-full">
-        <h1 class="font-bold text-6xl">
+        <h1 class="font-bold text-7xl">
             404
         </h1>
         <p class="font-medium text-red-600 dark:text-red-500">
