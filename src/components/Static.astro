@@ -1,0 +1,62 @@
+<script>
+    const canvases = document.querySelectorAll<HTMLCanvasElement>('canvas[data-static]')
+
+    function makeStatic(ctx: CanvasRenderingContext2D, width: number, height: number) {
+        const data = ctx.createImageData(width, height)
+        for (let i = 0; i < data.data.length; i += 4) {
+            const value = Math.random() * 192
+            data.data[i] = Math.floor(value + Math.random() * 64) // red
+            data.data[i + 1] = Math.floor(value + Math.random() * 64) // green
+            data.data[i + 2] = Math.floor(value + Math.random() * 64) // blue
+            data.data[i + 3] = 255 //alpha
+        }
+        return data
+    }
+    
+    for (const canvas of canvases) {
+        const w = canvas.width, h = canvas.height
+        const ctx = canvas.getContext('2d')
+        if (ctx) {
+            const context = ctx
+            const rect = makeStatic(ctx, w, h)
+            let x = Math.random() * (w - 40), y = Math.random() * (h - 30)
+            let t = Date.now()
+
+            const speed = 15, angle = Math.PI * (Math.random() * 0.25 + 0.125)
+            let vX = speed * Math.cos(angle) * Math.sign(Math.random() - 0.5)
+            let vY = speed * Math.sin(angle) * Math.sign(Math.random() - 0.5)
+
+            function tick() {
+                const data = makeStatic(context, w, h)
+                context.putImageData(data, 0, 0)
+                context.putImageData(rect, 0, 0, x, y, 40, 30)
+
+                const dt = Date.now() - t
+                t += dt
+
+                x += vX * dt / 1000
+                y += vY * dt / 1000
+
+                if (x > w - 40) {
+                    x = w - 40
+                    vX = -vX
+                } else if (x < 0) {
+                    x = 0
+                    vX = -vX
+                }
+                if (y > h - 30) {
+                    y = h - 30
+                    vY = -vY
+                } else if (y < 0) {
+                    y = 0
+                    vY = -vY
+                }
+
+                requestAnimationFrame(tick)
+            }
+            tick()
+        }
+    }
+</script>
+
+<canvas data-static class="select-none" width="150" height="100"></canvas>

@@ -1,0 +1,155 @@
+---
+import Static from './Static.astro'
+
+---
+
+<script>
+    const tv = document.querySelector<HTMLDivElement>('div[data-tv]') ?? (() => { throw new Error('could not find tv element') })()
+    const [container, ...others] = document.querySelectorAll<HTMLDivElement>('div[data-stats]')
+    others.forEach(e => e.parentElement?.remove())
+    const { width: w, height: h } = tv.getBoundingClientRect()
+    const bound = document.documentElement.getBoundingClientRect()
+    let x = Math.random() * (bound.width - w), y = Math.random() * (bound.height - h)
+    let vX = (Math.random() - 0.5) * 150, vY = (Math.random() - 0.5) * 150
+    vX += Math.sign(vX) * 100
+    vY += Math.sign(vY) * 100
+    let elapsed = 0
+    let t = Date.now()
+    let dragging = false
+    let corners = 0, walls = 0
+
+    tv.addEventListener('touchstart', (event) => {
+        // prevent pull down to refresh
+        if (event.touches.length === 1) {
+            event.preventDefault()
+        }
+    }, { passive: false })
+
+    tv.addEventListener('pointerdown', (pointerdown) => {
+        if (dragging) {
+            return
+        }
+        dragging = true
+        const x0 = x, y0 = y
+        let mX = pointerdown.pageX, mY = pointerdown.pageY
+        let mT = Date.now()
+
+        document.documentElement.style.userSelect = 'none'
+        document.documentElement.style.webkitUserSelect = 'none'
+        document.documentElement.style.cursor = 'grabbing'
+
+
+        const onpointermove = (event: PointerEvent) => {
+            if (event.pointerId !== pointerdown.pointerId || !dragging) {
+                return
+            }
+            const dt = Date.now() - mT
+            if (dt === 0) {
+                return
+            }
+            mT += dt
+
+            const { width, height } = document.documentElement.getBoundingClientRect()
+            const dX = Math.max(0, Math.min(x0 + mX - pointerdown.pageX, width - w)) - x
+            const dY = Math.max(0, Math.min(y0 + mY - pointerdown.pageY, height - h)) - y
+            mX = event.pageX
+            mY = event.pageY
+            x += dX, y += dY
+
+            const frac = Math.min(1, dt / 150)
+            vX = vX * (1 - frac) + dX / dt * 1000 * frac
+            vY = vY * (1 - frac) + dY / dt * 1000 * frac
+            const v = (vX ** 2 + vY ** 2) ** 0.5
+            if (v > 1000) {
+                vX *= 1000 / v, vY *= 1000 / v
+            }
+        }
+        window.addEventListener('pointermove', onpointermove, { passive: true })
+        
+        const onpointerend = (event: PointerEvent) => {
+            if (event.pointerId !== pointerdown.pointerId || !dragging) {
+                return
+            }
+            onpointermove(event)
+            window.removeEventListener('pointerup', onpointerend)
+            window.removeEventListener('pointercancel', onpointerend)
+            window.removeEventListener('pointermove', onpointermove)
+            document.documentElement.style.userSelect = ''
+            document.documentElement.style.webkitUserSelect = ''
+            document.documentElement.style.cursor = ''
+            dragging = false
+        }
+        window.addEventListener('pointerup', onpointerend)
+        window.addEventListener('pointercancel', onpointerend)
+    })
+
+    function tick() {
+        const dt = Math.min(Date.now() - t, 128)
+        t = Date.now()
+        elapsed += dt
+        
+        const { width, height } = document.documentElement.getBoundingClientRect()
+        
+        if (!dragging) {
+            let corner = false
+            const xToWall = vX < 0 ? -x : width - w - x
+            const yToWall = vY < 0 ? -y : height - h - y
+            if (Math.abs(xToWall / vX - yToWall / vY) < 1e-2) {
+                corner = true
+            }
+            x += vX * dt / 1000
+            y += vY * dt / 1000
+            let wall = 0
+            if (x < 0 || x > width - w) {
+                vX = -vX
+                wall++
+            }
+            if (y < 0 || y > height - h) {
+                vY = -vY
+                wall++
+            }
+            if (corner && wall === 2) {
+                corners += 1
+            } else {
+                walls += wall
+            }
+            x = Math.max(0, Math.min(x, width - w))
+            y = Math.max(0, Math.min(y, height - h))
+        }
+        tv.style.translate = `${x}px ${y}px`
+        const stats = {
+            position: `(${x.toFixed(1)}, ${y.toFixed(1)})`,
+            velocity: !dragging ? `(${vX.toFixed(1)}, ${vY.toFixed(1)})` : undefined,
+            wall_bounces: walls,
+            corner_bounces: corners,
+            time_elapsed: (elapsed / 1000).toFixed(2) + 's',
+            dragging
+        }
+        container.innerText = Object.entries(stats).filter(([k, v]) => v !== undefined).map(([k, v]) => k+': '+v).join('\n')
+        requestAnimationFrame(tick)
+    }
+    tick()
+    tv.style.visibility = 'visible'
+</script>
+
+<div data-tv class="absolute z-50 invisible left-0 top-0 rounded-sm bg-zinc-600 dark:bg-zinc-700 p-2 flex gap-1.5 shadow-2xl shadow-black/80 select-none cursor-grab active:cursor-grabbing">
+    <div class="rounded-md border border-zinc-400 bg-zinc-800 p-2 shadow-[inset_0_0_0.4rem_0_#000000] pointer-events-none">
+        <div class="relative rounded-lg overflow-clip">
+            <div class="absolute inset-0 rounded-md shadow-[inset_0_0_2rem_0.2rem_#000000]"/>
+            <Static/>
+        </div>
+    </div>
+    <div class="rounded-sm bg-zinc-800 w-10 bg-opacity-60 p-2">
+        <div class="rounded-full w-6 h-6 mt-2 bg-zinc-900"/>
+        <div class="rounded-full w-6 h-6 mt-2 bg-zinc-900"/>
+    </div>
+</div>
+
+<code class="absolute top-0 m-14 opacity-50 text-sm">
+    <details class="group">
+        <summary class="group-open:font-bold opacity-70 hover:opacity-100 group-open:opacity-100 underline cursor-pointer select-none">stats</summary>
+        <div data-stats>
+            hi
+        </div>
+    </details>
+</code>
