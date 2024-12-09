@@ -1,7 +1,17 @@
 {
+    "astro-pdf": {
+        "type": "npm",
+        "description": "Astro integration to generate PDFs from built pages and websites",
+        "tags": ["npm", "Astro", "Puppeteer"]
+    },
     "google-fine": {
+        "type": "page",
         "description": "Simple webpage with live estimate of the growth of Google's 2 undecillion ruble fine from Russia",
-        "tags": ["HTML"],
-        "github": true
+        "tags": ["HTML"]
+    },
+    "jupyter-trust": {
+        "type": "npm",
+        "description": "Node.js utility for managing the trust and signatures of Jupyter notebooks",
+        "tags": ["npm", "Jupyter", "SQLite3"]
     }
 }
