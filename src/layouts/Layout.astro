@@ -26,9 +26,9 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 	<body class="grid grid-rows-[auto_1fr_auto] min-h-full max-w-7xl mx-auto bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-slate-50">
 		<Header>
 			<Logo/>
-			<ThemeSwitch>
-				<Image slot="light" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src={light} width={40} height={40} densities={[1,2,3]} alt="" loading="eager"/>
-				<Image slot="dark" class="w-10 h-10 group-hover:drop-shadow-xl group-hover:scale-110 group-active:scale-105 transition-all" src={dark} width={40} height={40} densities={[1,2,3]} alt="" loading="eager"/>
+			<ThemeSwitch scale>
+				<Image slot="light" class="w-10 h-10" src={light} width={40} height={40} densities={[1,2,3]} alt="" loading="eager"/>
+				<Image slot="dark" class="w-10 h-10" src={dark} width={40} height={40} densities={[1,2,3]} alt="" loading="eager"/>
 			</ThemeSwitch>
 		</Header>
 		<main class="w-full p-4">
