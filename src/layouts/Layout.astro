@@ -23,7 +23,7 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 		<HeadImgLinks rel="shortcut icon" href="/icons/favicon{size}.png" sizes={[32,48,96,128,144,192]} type="image/png"/>
 		<link rel="canonical" href={Astro.url.href}/>
 	</Head>
-	<body class="grid grid-rows-[auto_1fr_auto] min-h-full max-w-7xl mx-auto bg-slate-50 dark:bg-slate-900">
+	<body class="grid grid-rows-[auto_1fr_auto] min-h-full max-w-7xl mx-auto bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-slate-50">
 		<Header>
 			<Logo/>
 			<ThemeSwitch>
@@ -36,10 +36,10 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 		</main>
 		<Footer>
 			<FooterNav slot="left"/>
-			<div slot="left" class="text-gray-600 dark:text-gray-300 opacity-80 px-2 py-0.5 mt-1">
+			<div slot="left">
                 Made with <a href="https://astro.build" class="underline">Astro</a>, <a href="https://svelte.dev" class="underline">Svelte</a> and <a href="https://tailwindcss.com" class="underline">Tailwind</a>.
             </div>
-			<div slot="right" class="text-gray-600 dark:text-gray-300 opacity-80 p-0.5 mt-auto">
+			<div slot="right">
 				<a href={`https://github.com/${REPO}`} class="underline">View on GitHub</a>
 				{ SHA &&
 					<span>-</span> <a class="hover:underline" href={`https://github.com/${REPO}/commit/${SHA}`}><code>{ SHA.substring(0,7) }</code></a>
@@ -53,9 +53,11 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 	html {
 		height: 100%;
 		min-height: fit-content;
+		--text: 2, 6, 23;
 	}
 	html.dark {
 		color-scheme: dark;
+		--text: 248, 250, 252;
 	}
 	body {
 		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 96 96' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='%2364748b40' cx='48' cy='48' r='6'/%3E%3C/svg%3E");
