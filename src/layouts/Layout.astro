@@ -22,7 +22,7 @@ const SHA = import.meta.env.GITHUB_SHA || (import.meta.env.DEV ? 'dc67a12a747c97
 	<Head {...Astro.props} site="ler.quest">
 		<HeadImgLinks rel="shortcut icon" href="/icons/favicon{size}.png" sizes={[32,48,96,128,144,192]} type="image/png"/>
 		<HeadImgLinks rel="apple-touch-icon" href="/icons/icon{size}.png" sizes={[180,192,512,1024]} type="image/png"/>
-		<link rel="canonical" href={Astro.url.href}/>
+		<link rel="canonical" href={(import.meta.env.SITE ?? '') + Astro.url.pathname}/>
 	</Head>
 	<body class="grid grid-rows-[auto_1fr_auto] min-h-full max-w-7xl mx-auto bg-slate-50 text-slate-950 dark:bg-slate-900 dark:text-slate-50">
 		<Header>

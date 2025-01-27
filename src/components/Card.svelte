@@ -20,7 +20,7 @@
 	let gh = $derived(typeof github === 'string' ? 'https://github.com/'+github : (github ? 'https://github.com/lameuler/'+name : false))
 	let site = $derived(typeof website === 'string' ? (website.startsWith('/') ? 'https://ler.sg/'+website : website) : (website ? 'https://ler.sg/'+name : false))
 
-	const base = (import.meta.env.SITE ?? '').replace(/^http:/, 'https://')
+	const base = import.meta.env.SITE ?? ''
 	let [ href, title ] = $derived.by(() => {
 		if (type === 'page') {
 			return [base.replace(/\/$/, '') + '/' + name + '/', 'Visit page']
