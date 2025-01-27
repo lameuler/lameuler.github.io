@@ -1,6 +1,6 @@
 {
     "astro-pdf": {
-        "type": "npm",
+        "type": "page",
         "description": "Astro integration to generate PDFs from built pages and websites",
         "tags": ["npm", "Astro", "Puppeteer"]
     },
